@@ -1,51 +1,47 @@
-let lang = prompt ('Выберите язык (ru, en)'),
-    weekdayRu = 'понедельник, вторник, среда, четверг, пятница, суббота, воскресенье',
-    weekdayEn = 'monday, tuesday, wednesday, thursday, friday, saturday, sunday',
-    message1a,
-    message1b,
-    message1c,
-    arrWeekday = {
-        'ru':'понедельник, вторник, среда, четверг, пятница, суббота, воскресенье',
-        'en':'monday, tuesday, wednesday, thursday, friday, saturday, sunday'
-    },
-    namePerson = prompt ('Введите имя'),
-    message2;
+let isNumber = function(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+};
 
-// 1.a
+const guessTheNumber = function () {
+    let userNumber = prompt('Угадай число от 1 до 100');
+    let answer = Math.floor(Math.random()*101);
+    let checkVar;
+    const wrongNumber = function(a, b) {
+        
+        if (a<b) {
+            checkVar = prompt('Загаданное число меньше, попробуй ещё');
+            if (checkVar === null) {
+                alert('Игра окончена');
+            } else if (isNumber(checkVar)) {
+                b = checkVar;
+                wrongNumber(a, b);
+            } else {
+                alert('Введи число!');
+                wrongNumber(a, b);
+            }
+        } else if (a>b) {
+            checkVar = prompt('Загаданное число больше, попробуй ещё');
+            if (checkVar === null) {
+                alert('Игра окончена');
+            } else if (isNumber(checkVar)) {
+                b = checkVar;
+                wrongNumber(a, b);
+            } else {
+                alert('Введи число!');
+                wrongNumber(a, b);
+            }
+        } else {
+            alert('Поздравляю, вы угадали!');
+        }
+    };
+    if(userNumber === null) {
+        alert('Игра окончена');
+    } else if (isNumber(userNumber)) {
+    wrongNumber(answer, userNumber);
+    } else {
+        alert('Введи число!');
+        guessTheNumber();
+    }
+};
 
-if (lang == 'ru') {
-    message1a = weekdayRu;
-} else if (lang == 'en') {
-    message1a = weekdayEn;
-} else {
-    message1a = 'Значение введено неверно';
-}
-
-// 1.b
-
-switch (lang) {
-    case 'ru':
-        message1b = weekdayRu;
-        break;
-    case 'en':
-        message1b = weekdayEn;
-        break;
-    default:
-        message1b = 'Значение введено неверно';
-        break;
-}
-
-// 1.c
-
-message1c = arrWeekday[lang];
-
-// 2
-
-message2 = (namePerson == 'Артём') ? 'директор' :
-    (namePerson == 'Максим') ? 'преподаватель' : 'студент';
-
-console.log(message1a);
-console.log(message1b);
-console.log(message1c);
-console.log(message2);
-
+guessTheNumber();
